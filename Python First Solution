@@ -1,0 +1,34 @@
+def selection_sort(array):
+    # Loop through each element in the array
+    for i in range(len(array)):
+        # Assume the current element is the smallest
+        smallest_idx = i
+        # Find the smallest element in the remaining unsorted part
+        for j in range(i + 1, len(array)):
+            if array[j] < array[smallest_idx]:
+                smallest_idx = j
+        # Swap the smallest element found with the current element
+        array[i], array[smallest_idx] = array[smallest_idx], array[i]
+
+def wiggle_sort(array):
+    # Step 1: Sort the array using the selection sort algorithm
+    selection_sort(array)
+    
+    # Step 2: Determine the middle index of the sorted array
+    mid_index = (len(array) // 2) if (len(array) % 2 == 0) else (len(array) // 2 + 1)
+    
+    # Step 3: Reverse the first and second halves of the array
+    first_half_reversed = array[:mid_index][::-1]
+    second_half_reversed = array[mid_index:][::-1]
+    
+    # Step 4: Interleave the reversed halves into the original array
+    array[::2], array[1::2] = first_half_reversed, second_half_reversed
+
+# Example usage:
+nums1 = [1, 5, 1, 1, 6, 4]
+wiggle_sort(nums1)
+print("Example 1 Output:", nums1)  # Output: [1, 6, 1, 5, 1, 4]
+
+nums2 = [9, 1, 3, 2, 2, 3, 1, 9, 7]
+wiggle_sort(nums2)
+print("Example 2 Output:", nums2)  # Output: [3, 9, 2, 7, 2, 3, 1, 9, 1]
